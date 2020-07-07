@@ -1,0 +1,16 @@
+{
+    "name": "hgh/exception-handler",
+    "description": "This package centralizes exceptions behaviour of projects. The duty of this package is to prevent to show unwanted exceptions to user.",
+    "type": "library",
+    "require": {
+        "hgh/helpers": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hamed Ghasempour",
+            "email": "hamedghasempour@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
