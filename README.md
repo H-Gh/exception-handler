@@ -79,8 +79,8 @@ $exception = new SampleException("SampleException");
   
 Now it's the turn of the logger. You can use the direct service as below:  
 ```php
-$filePath = "/tmp/logs";  
-$exceptionLogger = new \HGh\Handlers\Exception\Services\ExceptionLogger($filePath);  
+use HGh\Handlers\Exception\Services\ExceptionLogger;$filePath = "/tmp/logs";  
+$exceptionLogger = new ExceptionLogger($filePath);  
 $exceptionLogger->log($exception);  
 ``` 
 or use the facade:  
