@@ -55,7 +55,7 @@ class ExceptionLogger
      */
     public function log(Throwable $throwable)
     {
-        if ($this->writer instanceof NotLog) {
+        if ($throwable instanceof NotLog) {
             return;
         }
         $this->logException($throwable);
