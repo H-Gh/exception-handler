@@ -38,7 +38,14 @@ class FileWriter implements WriterInterface
      *
      * @var string
      */
-    private $mode = "rw";
+    private $mode = "a+";
+
+    /**
+     * The permission of opening file
+     *
+     * @var int
+     */
+    private $permission = 0755;
 
     /**
      * FileProvider constructor.
@@ -48,20 +55,6 @@ class FileWriter implements WriterInterface
     public function __construct(string $filePath)
     {
         $this->file = $this->getFilePointer($filePath);
-    }
-
-    /**
-     * @param string $filePath
-     *
-     * @return false|resource
-     */
-    private function getFilePointer(string $filePath)
-    {
-        $pathInfo = pathinfo($filePath);
-        if (!file_exists($pathInfo["dirname"])) {
-            mkdir($pathInfo["dirname"]);
-        }
-        return fopen($filePath, $this->mode);
     }
 
     /**
@@ -75,6 +68,34 @@ class FileWriter implements WriterInterface
     {
         $this->mode = $mode;
         return $this;
+    }
+
+    /**
+     * Set the permission of the file
+     *
+     * @param string $permission The permission of the file
+     *
+     * @return $this
+     */
+    public function setPermission(string $permission)
+    {
+        $this->permission = $permission;
+        return $this;
+    }
+
+    /**
+     * @param string $filePath
+     *
+     * @return false|resource
+     */
+    private function getFilePointer(string $filePath)
+    {
+        $pathInfo = pathinfo($filePath);
+        if (!is_dir($pathInfo["dirname"])) {
+            mkdir($pathInfo["dirname"], $this->permission, true);
+            chmod($pathInfo["dirname"], $this->permission);
+        }
+        return fopen($filePath, $this->mode);
     }
 
     /**
